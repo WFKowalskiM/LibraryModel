@@ -1,0 +1,86 @@
+﻿@using WebApplication4.Models.Book
+@model List<WebApplication4.Models.Book.BookEntity>
+
+
+<div class="row" style="margin-left: -15%; margin-right: -15%;">
+    <div class="col-4" style="margin-top: 3.3%;">
+        <form asp-controller="Book" asp-action="Index" method="get">
+            <div class="form-group">
+                <label for="isbn">ISBN:</label>
+                <input type="text" class="form-control" name="isbn">
+            </div>
+            <div class="form-group">
+                <label for="title">Tytuł:</label>
+                <input type="text" class="form-control" name="title">
+            </div>
+            <div class="form-group">
+                <label for="author">Autor:</label>
+                <input type="text" class="form-control" name="author">
+            </div>  
+            <div class="form-group">
+                <label for="category">Kategoria:</label>
+                <select class="form-control" name="category">
+                    <option value="">Wybierz kategorię</option>
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        <option value="@category.CategoryId">@category.Name</option>
+                    }
+                </select>
+            </div>
+            <button class="btn btn-primary mt-2" id="myButton" type="submit">Szukaj</button>
+            <a asp-controller="Book" asp-action="Index" class="btn btn-primary mt-2">Reset</a>
+        </form>
+    </div>
+    <div class="col-8">
+        <table class="table" style="text-align: center;">
+            <thead style="font-size: large; vertical-align: middle;">
+                <tr>
+                    <th><p>Isbn</p></th>
+                    <th> <p>Tytuł</p></th>
+                    <th> <p>Author</p></th>
+                    <th><p>Kategoria</p></th>
+                    <th><p>Liczba Dostępnych</p></th>
+                    <th><p>Liczba Stron</p></th>
+                    <th> <p>Data Wydania</p></th>
+                    <th><p>Status</p></th>
+                    <th></th>
+                </tr>
+                </thead>
+            <tbody style="vertical-align: middle;">
+                @{
+                bool altRow = true;
+                foreach (var item in Model)
+                {
+                    <tr style="border-style: hidden; background-color: @(altRow ? "steelblue" : "lightblue")">
+                        <td>@Html.DisplayFor(modelItem => item.Isbn)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                        <td>@Html.DisplayFor(modelItem => item.AuthorFullname)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.BookCount)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PageCount)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PublishDate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                        @{
+                        if(altRow && item.Status == Status.Dostępna){
+                            <td><a asp-action="addToCart" class="btn btn-primary btn-primary-light mt-2" asp-route-id="@item.BookId">Dodaj Do Koszyka</a></td>
+                        }
+                        else if(!altRow && item.Status == Status.Dostępna){
+                            <td><a asp-action="addToCart" class="btn btn-primary btn-primary-steel mt-2" lightblue"" asp-route-id="@item.BookId">Dodaj Do Koszyka</a></td>
+                        }
+                        else if (altRow && item.Status == Status.Niedostępna)
+                        {
+                            <td><a asp-action="Index" class="btn btn-primary btn-primary-light mt-2">Książka Niedostępna</a></td>
+                        }
+                        else if (!altRow && item.Status == Status.Niedostępna)
+                        {
+                            <td><a asp-action="Index" class="btn btn-primary btn-primary-steel mt-2">Książka Niedostępna</a></td>
+                        }
+                        }
+                    </tr>
+                    altRow = !altRow;
+                }
+                }
+            </tbody>
+            </table>
+        </div>
+</div>

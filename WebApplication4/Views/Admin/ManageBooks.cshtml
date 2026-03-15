@@ -1,0 +1,55 @@
+﻿@model List<WebApplication4.Models.Book.BookEntity>;
+
+<p>
+    <a asp-action="CreateBook" class="btn btn-primary">Dodaj książkę</a>
+</p>
+<table class="table" style="text-align: center;">
+    <thead style="font-size: large; vertical-align: middle">
+        <tr>
+            <th><p>ID Książki</p></th>
+            <th><p>Isbn</p></th>
+            <th><p>Tytuł</p></th>
+            <th><p>Author</p></th>
+            <th><p>Kategoria</p></th>
+            <th><p>Liczba Dostępnych</p></th>
+            <th><p>Liczba Stron</p></th>
+            <th><p>Data Wydania</p></th>
+            <th><p>Data Utworzenia</p></th>
+            <th><p>Status</p></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody style="vertical-align: middle;">
+        @{
+        bool altRow = true;
+        foreach (var item in Model)
+        {
+                <tr style="border-block-style: hidden; background-color: @(altRow ? "steelblue" : "lightblue")">
+                <td>@Html.DisplayFor(modelItem => item.BookId)</td>
+                <td>@Html.DisplayFor(modelItem => item.Isbn)</td>
+                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                <td>@Html.DisplayFor(modelItem => item.AuthorFullname)</td>
+                <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.BookCount)</td>
+                <td>@Html.DisplayFor(modelItem => item.PageCount)</td>
+                <td>@Html.DisplayFor(modelItem => item.PublishDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.CreatedOn)</td>
+                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                @{
+                if (altRow)
+                {
+                    <td><a class="btn btn-primary btn-primary-light" asp-action="EditBook" asp-route-id="@item.BookId">Edytuj</a></td>
+                    <td><a class="btn btn-primary btn-primary-light" asp-action="DeleteBook" asp-route-id="@item.BookId">Usuń</a></td>
+                }
+                else
+                {
+                    <td><a class="btn btn-primary btn-primary-steel" asp-action="EditBook" asp-route-id="@item.BookId">Edytuj</a></td>
+                    <td><a class="btn btn-primary btn-primary-steel" asp-action="DeleteBook" asp-route-id="@item.BookId">Usuń</a></td>
+                }
+                }
+            </tr>
+            altRow = !altRow;
+        }
+        }
+    </tbody>
+</table>

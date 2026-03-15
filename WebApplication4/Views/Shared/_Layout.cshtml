@@ -1,0 +1,132 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using System.Security.Claims
+@using WebApplication4.Models.User
+@inject SignInManager<AppUser> SignInManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApplication4</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebApplication4.styles.css" asp-append-version="true" />
+    <style>
+        .navbar-custom {
+            background-color: steelblue;
+        }
+            /* Modify brand and text color */
+
+            .navbar-custom .navbar-brand,
+            .navbar-custom .navbar-text {
+                font-weight: bold;
+                color: black;
+                font-style: italic;
+                font-size: large;
+            }
+
+        .btn.btn-primary:any-link {
+            font-weight: bold;
+            background-color: steelblue;
+            outline-color: steelblue;
+            border-color: steelblue;
+            color: black;
+        }
+
+        .btn.btn-primary:default {
+            font-weight: bold;
+            background-color: steelblue;
+            outline-color: steelblue;
+            border-color: steelblue;
+            color: black;
+        }
+
+        .btn.btn-primary:hover {
+            font-weight: bold;
+            background-color: #3d739f;
+            outline-color: #3d739f;
+            border-color: #3d739f;
+            color: black;
+        }
+
+        .btn-primary.btn-primary-light:any-link {
+            font-weight: bold;
+            background-color: transparent;
+            outline-color: lightblue;
+            border-color: steelblue;
+            color: black;
+        }
+
+        .btn-primary.btn-primary-light:hover {
+            font-weight: bold;
+            background-color: lightblue;
+            outline-color: lightblue;
+            border-color: lightblue;
+            color: black;
+        }
+
+        .btn-primary.btn-primary-steel:any-link {
+            font-weight: bold;
+            background-color: transparent;
+            outline-color: steelblue;
+            border-color: lightblue;
+            color: black;
+        }
+
+        .btn-primary.btn-primary-steel:hover {
+            font-weight: bold;
+            background-color: steelblue;
+            outline-color: steelblue;
+            border-color: steelblue;
+            color: black;
+        }
+    </style>
+
+</head>
+<body style="background-color: lightblue">
+    <header>
+        <nav class="navbar navbar-custom navbar-expand-sm navbar-toggleable-sm box-shadow mb-3" style="border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: black;">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item" style="font-size: x-large; font-weight: bold; color: black;">
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Biblioteka</a>
+                        </li>
+                        <li class="nav-item" style="font-size: large; font-weight: bold; color: black; margin-top: 0.5%">
+                            <a class="nav-link text-dark" asp-controller="Book" asp-action="Index">Książki</a>
+                        </li>
+                        <li class="nav-item" style="font-size: large; font-weight: bold; color: black; margin-top: 0.5%">
+                            <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">Koszyk</a>
+                        </li>
+                        <li class="nav-item" style="font-size: large; font-weight: bold; color: black; margin-top: 0.5%">
+                            <a class="nav-link text-dark" asp-controller="Admin" asp-action="Index">Administracja</a>
+                        </li>
+                    </ul>
+                </div>
+                <partial name = "_LoginPartial"></partial>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()   
+        </main>
+    </div>
+
+    
+    <footer class="footer text-muted" style="background-color: steelblue; border-top-style: solid; border-top-width: 2px; border-top-color: black;">
+        <div class="container" style="color: black; font-style: italic">
+            &copy; 2023 - Biblioteka - Damian Maksimowicz i Maciek Kowalski
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

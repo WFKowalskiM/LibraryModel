@@ -1,0 +1,46 @@
+﻿@model List<WebApplication4.Models.User.AppUser>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Lastname</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+       @foreach (var user in Model)
+{
+    if (User.Identity.Name == user.UserName)
+    {
+        continue;
+    }
+    <tr>
+        <td>@user.Email</td>
+        <td>@user.FirstName</td>
+        <td>@user.LastName</td>
+        <td>@user.Role</td>
+        <td>@user.Status</td>
+        <td>
+            <form method="post" asp-controller="Admin" asp-action="ChangeStatus" asp-route-userId="@user.Id">
+                <select name="newRole" @if (ViewBag.IsEmployee) { <text>disabled</text> }>
+                    <option value="User">Client</option>
+                    <option value="Employee" selected>Employee</option>
+                    <option value="Admin">Admin</option>
+                </select>
+                    <select name="newStatus" @if (user.Role == WebApplication4.Models.User.Role.Admin) {<text>disabled</text>}>
+                    <option value="New">New</option>
+                    <option value="Verified">Verified</option>
+                </select>
+                    @if (!(user.Role == WebApplication4.Models.User.Role.Admin))
+                    {
+                        <button type="submit">Zmień wartości</button>
+                    }
+                </form>
+        </td>
+    </tr>
+}
+    </tbody>
+</table>

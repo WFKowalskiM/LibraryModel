@@ -1,0 +1,45 @@
+﻿@using WebApplication4.Models.Book
+@model List<BookEntity>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<header style="margin-bottom: 2%; text-align: center;">
+    <h1>Najnowsze Książki</h1>
+</header>
+<div class="row" style="text-align: center;">
+    <div class="col">
+        <table class="table">
+            <thead style="font-size: large; vertical-align: middle;">
+                <tr>
+                    <th><p>Isbn</p></th>
+                    <th><p>Tytuł</p></th>
+                    <th><p>Author</p></th>
+                    <th><p>Kategoria</p></th>
+                    <th><p>Liczba Dostępnych</p></th>
+                    <th><p>Liczba Stron</p></th>
+                    <th><p>Data Wydania</p></th>
+                    <th><p>Status</p></th>
+                </tr>
+            </thead>
+            <tbody style="vertical-align: middle;">
+            @{
+            bool altRow = true;
+            foreach (var item in Model)
+            {
+                <tr style="border-style: hidden; background-color: @(altRow ? "steelblue" : "lightblue")">
+                    <td>@Html.DisplayFor(modelItem => item.Isbn)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                    <td>@Html.DisplayFor(modelItem => item.AuthorFullname)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BookCount)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PageCount)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PublishDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                </tr>
+                altRow = !altRow;
+            }
+            }
+        </tbody>
+        </table>
+    </div>
+</div>

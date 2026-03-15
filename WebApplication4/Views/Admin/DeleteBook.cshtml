@@ -1,0 +1,23 @@
+﻿@model WebApplication4.Models.Book.BookEntity
+
+@{
+    ViewData["Title"] = "Usuń książkę";
+}
+
+<h1>Usuń</h1>
+
+<ul>
+    <li>ISBN: @Html.DisplayFor(model => model.Isbn)</li>
+    <li>Tytuł: @Html.DisplayFor(model => model.Title)</li>
+    <li>Autor: @Html.DisplayFor(model => model.AuthorFullname)</li>
+    <li>Data publikacji: @Html.DisplayFor(model => model.PublishDate)</li>
+    <li>Ilość książek: @Html.DisplayFor(model => model.BookCount)</li>
+    <li>Ilość stron: @Html.DisplayFor(model => model.PageCount)</li>
+    <li>Kategoria: @Html.DisplayFor(model => model.Category.Name)</li>
+        
+</ul>
+
+<form asp-action="DeleteBook" method="post">
+    <input type="hidden" asp-for="BookId" />
+    <button type="submit" class="btn btn-primary my-2">Usuń</button>
+</form>

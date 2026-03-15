@@ -1,0 +1,54 @@
+﻿@using WebApplication4.Models.Renting;
+@using WebApplication4.Models.Book;
+@model List<RentEntity>;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<a class="btn btn-primary" asp-action="Rent">Wypożycz</a>
+
+<table class="table" style="text-align: center;">
+    <thead style="font-size: large; vertical-align: middle">
+        <tr>
+            <th><p>Isbn</p></th>
+            <th><p>Tytuł</p></th>
+            <th><p>Author</p></th>
+            <th><p>Kategoria</p></th>
+            <th><p>Liczba Dostępnych</p></th>
+            <th><p>Liczba Stron</p></th>
+            <th><p>Data Wydania</p></th>
+            <th><p>Status</p></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody style="vertical-align: middle;">
+        @{
+        bool altRow = true;
+        foreach (var item in Model) 
+        {
+            <tr style="border-style: hidden; background-color: @(altRow ? "steelblue" : "lightblue")">
+                <td>@Html.DisplayFor(modelItem => item.Book.Isbn)</td>
+                <td>@Html.DisplayFor(modelItem => item.Book.Title)</td>
+                <td>@Html.DisplayFor(modelItem => item.Book.AuthorFullname)</td>
+                <td>@Html.DisplayFor(modelItem => item.Book.Category.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Book.BookCount)</td>
+                <td>@Html.DisplayFor(modelItem => item.Book.PageCount)</td>
+                <td>@Html.DisplayFor(modelItem => item.Book.PublishDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.Book.Status)</td>
+                @{
+                if (altRow && item.Book.Status == Status.Dostępna)
+                {
+                    <td> <a class="btn btn-primary btn-primary-light" asp-action="Delete" asp-route-id="@item.RentId">Usuń</a></td>
+                }
+                else
+                {
+                    <td><a class="btn btn-primary btn-primary-steel" asp-action="Delete" asp-route-id="@item.RentId">Usuń</a></td>
+                }
+                }
+            </tr>
+            altRow = !altRow;
+        }
+        }
+    </tbody>
+</table>
